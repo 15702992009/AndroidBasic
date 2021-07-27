@@ -45,7 +45,6 @@ public class CrimeListFragment extends Fragment {
         //设置 管理器，为什么是LinearLayout
         mCrimeRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         updateUI();
-
         return view;
     }
 
@@ -75,7 +74,7 @@ public class CrimeListFragment extends Fragment {
 
 
     /**
-     * bind list_item_view first
+     * RecyclerView.ViewHolder
      */
     private class CrimeHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         private TextView mTitleTextView;
@@ -115,16 +114,14 @@ public class CrimeListFragment extends Fragment {
                     mCrime.getmTitle() + " clicked!", Toast.LENGTH_SHORT)
                     .show();*/
 //            Intent intent = CrimeActivity.newIntent(getActivity(), mCrime.getmId());
-
             Intent intent = CrimePagerActivity.newIntent(getActivity(), mCrime.getmId());
 //            startActivity(intent);
             startActivityForResult(intent, REQUEST_CRIME);
-
         }
     }
 
     /**
-     * extends RecyclerView.Adapter<CrimeHolder>  CrimeHolder   need be implemented first
+     *  RecyclerView.Adapter<CrimeHolder>
      */
     private class CrimeAdapter extends RecyclerView.Adapter<CrimeHolder> {
         private List<Crime> mCrimes;

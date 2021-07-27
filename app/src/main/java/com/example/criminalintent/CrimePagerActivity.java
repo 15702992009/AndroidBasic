@@ -37,9 +37,9 @@ public class CrimePagerActivity extends AppCompatActivity {
         mViewPager = findViewById(R.id.crime_pager);
         mCrimes = CrimeLab.get(this).getCrimes();
 //        获取fragment驱动
-        FragmentManager supportFragmentManager = getSupportFragmentManager();
+        FragmentManager fragmentManager = getSupportFragmentManager();
         // 将fragmentManager传入fragmentStatePagerAdapter
-        mViewPager.setAdapter(new FragmentStatePagerAdapter(supportFragmentManager) {
+        mViewPager.setAdapter(new FragmentStatePagerAdapter(fragmentManager) {
             @NonNull
             @NotNull
             @Override
