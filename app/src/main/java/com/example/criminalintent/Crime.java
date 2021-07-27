@@ -8,9 +8,25 @@ public class Crime {
     private String mTitle;
     private Date mDate;
     private boolean mSolved;
+    private String mSuspect;
+
     public Crime() {
-        mId = UUID.randomUUID();
+        /*mId = UUID.randomUUID();
+        mDate = new Date();*/
+        this(UUID.randomUUID());
+    }
+
+    public Crime(UUID id) {
+        mId = id;
         mDate = new Date();
+    }
+
+    public String getmSuspect() {
+        return mSuspect;
+    }
+
+    public void setmSuspect(String mSuspect) {
+        this.mSuspect = mSuspect;
     }
 
     public void setmId(UUID mId) {
