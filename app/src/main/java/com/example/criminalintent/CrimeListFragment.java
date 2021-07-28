@@ -1,6 +1,7 @@
 package com.example.criminalintent;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -21,7 +22,11 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.util.List;
+
+import javax.security.auth.callback.Callback;
 
 /**
  * 绑定
@@ -29,11 +34,29 @@ import java.util.List;
 public class CrimeListFragment extends Fragment {
     private RecyclerView mCrimeRecyclerView;
     private CrimeAdapter mAdapter;
+    private boolean mSubtitleVisible;
+    private Callbacks mCallbacks;
+
     public static final String EXTRA_CRIME_ID =
             "com.bignerdranch.android.criminalintent.crime_id";
     private static final int REQUEST_CRIME = 1;
-    private boolean mSubtitleVisible;
     private static final String SAVED_SUBTITLE_VISIBLE = "subtitle";
+
+    public interface Callbacks {
+        void onCrimeSelected(Crime crime);
+    }
+
+    @Override
+    public void onDetach() {
+        super.onDetach();
+        mCallbacks = null;
+    }
+
+    @Override
+    public void onAttach(@NonNull @NotNull Context context) {
+        super.onAttach(context);
+        mCallbacks = (Callbacks) context;
+    }
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, @Nullable @org.jetbrains.annotations.Nullable Intent data) {
@@ -89,7 +112,7 @@ public class CrimeListFragment extends Fragment {
     /**
      * 视图创建与数据绑定
      */
-    private void updateUI() {
+    public void updateUI() {
 
         CrimeLab crimeLab = CrimeLab.get(getActivity());
         List<Crime> crimes = crimeLab.getCrimes();
@@ -120,9 +143,11 @@ public class CrimeListFragment extends Fragment {
             case R.id.new_crime:
                 Crime crime = new Crime();
                 CrimeLab.get(getActivity()).addCrime(crime);
-                Intent intent = CrimePagerActivity
+ /*               Intent intent = CrimePagerActivity
                         .newIntent(getActivity(), crime.getmId());
-                startActivity(intent);
+                startActivity(intent);*/
+                updateUI();
+                mCallbacks.onCrimeSelected(crime);
                 return true;
             case R.id.show_subtitle:
                 mSubtitleVisible = !mSubtitleVisible;
@@ -175,9 +200,10 @@ public class CrimeListFragment extends Fragment {
                     mCrime.getmTitle() + " clicked!", Toast.LENGTH_SHORT)
                     .show();*/
 //            Intent intent = CrimeActivity.newIntent(getActivity(), mCrime.getmId());
-            Intent intent = CrimePagerActivity.newIntent(getActivity(), mCrime.getmId());
+//            Intent intent = CrimePagerActivity.newIntent(getActivity(), mCrime.getmId());
 //            startActivity(intent);
-            startActivityForResult(intent, REQUEST_CRIME);
+//            startActivityForResult(intent, REQUEST_CRIME);
+            mCallbacks.onCrimeSelected(mCrime);
         }
     }
 

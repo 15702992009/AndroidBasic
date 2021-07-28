@@ -20,7 +20,9 @@ public class Crime {
         mId = id;
         mDate = new Date();
     }
-
+    public String getPhotoFilename() {
+        return "IMG_" + getmId().toString() + ".jpg";
+    }
     public String getmSuspect() {
         return mSuspect;
     }
