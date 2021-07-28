@@ -56,23 +56,33 @@ public class CrimeFragment extends Fragment {
     private static final int REQUEST_DATE = 0;
     private static final int REQUEST_CONTACT = 1;
     private static final int REQUEST_PHOTO = 2;
+
     public interface Callbacks {
         void onCrimeUpdated(Crime crime);
     }
+
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
         mCallbacks = (Callbacks) context;
     }
+
     @Override
     public void onDetach() {
         super.onDetach();
         mCallbacks = null;
     }
+
+    /**
+     * 当 fragment中 控件监测到变化时调用 updateCrime()方法
+     * 1.  CrimeLab.get(getActivity()).updateCrime(mCrime); 更新持久化数据到SQLite数据库
+     *  2. 调用crimeFragment的mCallbacks.onCrimeUpdated(mCrime);(此方法为Activity类的回调函数)
+     */
     private void updateCrime() {
         CrimeLab.get(getActivity()).updateCrime(mCrime);
         mCallbacks.onCrimeUpdated(mCrime);
     }
+
     private String getCrimeReport() {
         String solvedString = null;
         if (mCrime.ismSolved()) {
@@ -174,7 +184,9 @@ public class CrimeFragment extends Fragment {
                 updateCrime();
             }
         });
-
+        /**
+         *
+         */
         mTitleField.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(
@@ -186,6 +198,8 @@ public class CrimeFragment extends Fragment {
             public void onTextChanged(
                     CharSequence s, int start, int before, int count) {
                 mCrime.setmTitle(s.toString());
+                // EditText框文字改变的时候 :updateCrime();做了下面两件事
+
                 updateCrime();
             }
 
@@ -251,7 +265,7 @@ public class CrimeFragment extends Fragment {
         if (mPhotoFile == null || !mPhotoFile.exists()) {
             mPhotoView.setImageDrawable(null);
         } else {
-            Bitmap bitmap = PictureUtils.getScaledBitmap(mPhotoFile.getPath(),getActivity());
+            Bitmap bitmap = PictureUtils.getScaledBitmap(mPhotoFile.getPath(), getActivity());
             mPhotoView.setImageBitmap(bitmap);
         }
     }
@@ -275,7 +289,7 @@ public class CrimeFragment extends Fragment {
                     .getSerializableExtra(DatePickerFragment.EXTRA_DATE);
             // 这里更新date视图数据。
             mCrime.setmDate(date);
-            // 更新Fragment试图
+            // 更新CrimeListFragment视图
             updateCrime();
             updateDate();
         } else if (requestCode == REQUEST_CONTACT && data != null) {
@@ -304,7 +318,7 @@ public class CrimeFragment extends Fragment {
             } finally {
                 c.close();
             }
-        }else if (requestCode == REQUEST_PHOTO) {
+        } else if (requestCode == REQUEST_PHOTO) {
             Uri uri = FileProvider.getUriForFile(getActivity(),
                     "com.example.android.criminalintent.fileprovider",
                     mPhotoFile);
