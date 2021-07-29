@@ -64,3 +64,9 @@ public class DatePickerFragment extends DialogFragment {
 #chapter17
 别名资源是一种指向其他资源的特殊资源。它存放在res/values/目录下,并按照约定定义在
 refs.xml文件中。
+# 在 XML 文件中定义菜单
+菜单是一种类似于布局的资源。创建菜单定义文件并将其放置在res/menu目录下,Android
+会自动生成相应的资源ID。随后,在代码中实例化菜单时,就可以直接使用。
+在项目工具窗口中,右键单击res目录,选择New → Android resource file菜单项。在弹出的窗
+口界面,选择Menu资源类型,并命名资源文件为fragment_crime_list,点击OK按钮确认,如图13-3
+所示
