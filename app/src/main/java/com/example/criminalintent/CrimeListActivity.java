@@ -10,6 +10,18 @@ import android.util.Log;
 public class CrimeListActivity extends SingleFragmentActivity implements CrimeListFragment.Callbacks, CrimeFragment.Callbacks {
     private static final String TAG = "CrimeListActivity";
 
+
+    /**
+     * 通过别名系统实现 不同设备的不同布局
+     * 自定义方法
+     * @return
+     */
+    @Override
+    protected int getLayoutResId() {
+        //todo  不同设备 这儿个值的答案是有不同吗? 2131427359  2131427359 2131427359 2131427359
+        Log.d(TAG, String.valueOf(R.layout.activity_masterdetail));
+        return R.layout.activity_masterdetail;
+    }
     /**
      * 自定义方法
      *
@@ -22,17 +34,6 @@ public class CrimeListActivity extends SingleFragmentActivity implements CrimeLi
 
     }
 
-    /**
-     * 通过别名系统实现 不同设备的不同布局
-     *
-     * @return
-     */
-    @Override
-    protected int getLayoutResId() {
-        //todo  不同设备 这儿个值的答案是有不同吗? 2131427359  2131427359 2131427359 2131427359
-        Log.d(TAG, String.valueOf(R.layout.activity_masterdetail));
-        return R.layout.activity_masterdetail;
-    }
 
     @Override
     public void onCrimeSelected(Crime crime) {

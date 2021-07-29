@@ -14,9 +14,7 @@ public abstract class SingleFragmentActivity extends AppCompatActivity {
     protected abstract Fragment createFragment();
 
     @LayoutRes
-    protected int getLayoutResId() {
-        return R.layout.activity_fragment;
-    }
+    protected abstract int getLayoutResId();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,7 +22,7 @@ public abstract class SingleFragmentActivity extends AppCompatActivity {
 //        setContentView(R.layout.activity_fragment);
         // 绑定视图
         setContentView(getLayoutResId());
-         // 2131427359 2131427359
+         // 手机和平板绑定的为什么相同?2131427359 2131427359
         Log.d(TAG,String.valueOf(getLayoutResId()));
 
         FragmentManager fm = getSupportFragmentManager();

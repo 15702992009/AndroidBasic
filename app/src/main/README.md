@@ -60,3 +60,7 @@ public class DatePickerFragment extends DialogFragment {
 
 ## 
 .CrimeListActivity
+
+#chapter17
+别名资源是一种指向其他资源的特殊资源。它存放在res/values/目录下,并按照约定定义在
+refs.xml文件中。
