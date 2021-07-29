@@ -177,19 +177,29 @@ public class CrimeListFragment extends Fragment {
     /**
      * RecyclerView.ViewHolder
      */
-    private class CrimeHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+    private class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         private TextView mTitleTextView;
         private TextView mDateTextView;
         private ImageView mSolvedImageView;
         private Crime mCrime;
 
-        public CrimeHolder(LayoutInflater inflater, ViewGroup parent) {
+        public ViewHolder(LayoutInflater inflater, ViewGroup parent) {
             super(inflater.inflate(R.layout.list_item_crime, parent, false));
             mTitleTextView = (TextView) itemView.findViewById(R.id.crime_title);
             mDateTextView = (TextView) itemView.findViewById(R.id.crime_date);
             mSolvedImageView = (ImageView) itemView.findViewById(R.id.crime_imageView);
             itemView.setOnClickListener(this);
         }
+
+/*
+        public ViewHolder(@NonNull View itemView) {
+            super(itemView);
+            mTitleTextView = (TextView) itemView.findViewById(R.id.crime_title);
+            mDateTextView = (TextView) itemView.findViewById(R.id.crime_date);
+            mSolvedImageView = (ImageView) itemView.findViewById(R.id.crime_imageView);
+            itemView.setOnClickListener(this);
+        }
+*/
 
         public void bind(Crime crime) {
             mCrime = crime;
@@ -221,7 +231,7 @@ public class CrimeListFragment extends Fragment {
         }
     }
 
-    private class CrimeAdapter extends RecyclerView.Adapter<CrimeHolder> {
+    private class CrimeAdapter extends RecyclerView.Adapter<ViewHolder> {
         private List<Crime> mCrimes;
 
         public void setCrimes(List<Crime> crimes) {
@@ -235,13 +245,13 @@ public class CrimeListFragment extends Fragment {
         @NonNull
         @org.jetbrains.annotations.NotNull
         @Override
-        public CrimeHolder onCreateViewHolder(@NonNull @org.jetbrains.annotations.NotNull ViewGroup parent, int viewType) {
+        public CrimeListFragment.ViewHolder onCreateViewHolder(@NonNull @org.jetbrains.annotations.NotNull ViewGroup parent, int viewType) {
             LayoutInflater layoutInflater = LayoutInflater.from(getActivity());
-            return new CrimeHolder(layoutInflater, parent);
+            return new ViewHolder(layoutInflater, parent);
         }
 
         @Override
-        public void onBindViewHolder(@NonNull @org.jetbrains.annotations.NotNull CrimeListFragment.CrimeHolder holder, int position) {
+        public void onBindViewHolder(@NonNull @org.jetbrains.annotations.NotNull CrimeListFragment.ViewHolder holder, int position) {
             Crime crime = mCrimes.get(position);
             holder.bind(crime);
         }
