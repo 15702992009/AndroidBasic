@@ -15,11 +15,16 @@ public class CrimeActivity extends SingleFragmentActivity {
             "com.bignerdranch.android.criminalintent.crime_id";
 
     @Override
-    protected Fragment createFragment() {
+    protected Fragment createLeftFragment() {
 //        return new CrimeFragment();
         UUID crimeId = (UUID) getIntent()
                 .getSerializableExtra(EXTRA_CRIME_ID);
         return CrimeFragment.newInstance(crimeId);
+    }
+
+    @Override
+    protected Fragment createRightFragment() {
+        return null;
     }
 
     @Override

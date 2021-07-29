@@ -7,11 +7,15 @@ import androidx.annotation.LayoutRes;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 public abstract class SingleFragmentActivity extends AppCompatActivity {
     private static final String TAG = "SingleFragmentActivity";
 
-    protected abstract Fragment createFragment();
+    protected abstract Fragment createLeftFragment();
+
+    protected abstract Fragment createRightFragment();
+
 
     @LayoutRes
     protected abstract int getLayoutResId();
@@ -20,19 +24,19 @@ public abstract class SingleFragmentActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 //        setContentView(R.layout.activity_fragment);
-        // 绑定视图
         setContentView(getLayoutResId());
-         // 手机和平板绑定的为什么相同?2131427359 2131427359
-        Log.d(TAG,String.valueOf(getLayoutResId()));
+        // 手机和平板绑定的为什么相同?2131427359 2131427359
+        Log.d(TAG, String.valueOf(getLayoutResId()));
 
         FragmentManager fm = getSupportFragmentManager();
-        Fragment fragment = fm.findFragmentById(R.id.fragment_container);
-        if (fragment == null) {
-            // 向xml文件中FrameLayout控件绑定  Fragment实体对象
-            fragment = createFragment();
-            fm.beginTransaction()
-                    .add(R.id.fragment_container, fragment)
-                    .commit();
+        Fragment leftFragment = createLeftFragment();
+        Fragment rightFragment = createRightFragment();
+        FragmentTransaction transaction = fm.beginTransaction();
+        transaction.add(R.id.fragment_container, leftFragment);
+        if (findViewById(R.id.detail_fragment_container)!=null&&rightFragment!=null) {
+            transaction.add(R.id.detail_fragment_container, rightFragment);
         }
+        transaction.commit();
+
     }
 }

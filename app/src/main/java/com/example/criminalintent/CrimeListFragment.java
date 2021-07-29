@@ -67,7 +67,7 @@ public class CrimeListFragment extends Fragment {
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // xml文件定位绑定View子类
+        //  bind layout to Fragment
         View view = inflater.inflate(R.layout.fragment_crime_list, container, false);
         // RecyclerView xml绑定到类对象
         mCrimeRecyclerView = view.findViewById(R.id.crime_recycler_view);
@@ -123,13 +123,13 @@ public class CrimeListFragment extends Fragment {
             //LEFT: 第一次创建adapter,并将adapter绑定到recyclerview对象上
             mAdapter = new CrimeAdapter(crimes);
             mCrimeRecyclerView.setAdapter(mAdapter);
-//todo 07/29  exist bugs when used phone
             //RIGHT 显示右侧fragment的内容
-  /*          Crime crime = crimes.get(0);
-            if (crime != null) {
-                mCallbacks.onCrimeSelected(crime);
+           /* if (getActivity().findViewById(R.id.detail_fragment_container) != null) {
+                Crime crime = crimes.get(0);
+                if (crime != null) {
+                    mCallbacks.onCrimeSelected(crime);
+                }
             }*/
-
         } else {
             // new Crime后,左边list实时更新视图,
             mAdapter.setCrimes(crimes);
