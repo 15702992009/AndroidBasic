@@ -183,15 +183,14 @@ public class CrimeListFragment extends Fragment {
         private ImageView mSolvedImageView;
         private Crime mCrime;
 
-        public ViewHolder(LayoutInflater inflater, ViewGroup parent) {
+
+/*        public ViewHolder(LayoutInflater inflater, ViewGroup parent) {
             super(inflater.inflate(R.layout.list_item_crime, parent, false));
             mTitleTextView = (TextView) itemView.findViewById(R.id.crime_title);
             mDateTextView = (TextView) itemView.findViewById(R.id.crime_date);
             mSolvedImageView = (ImageView) itemView.findViewById(R.id.crime_imageView);
             itemView.setOnClickListener(this);
-        }
-
-/*
+        }*/
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             mTitleTextView = (TextView) itemView.findViewById(R.id.crime_title);
@@ -199,9 +198,8 @@ public class CrimeListFragment extends Fragment {
             mSolvedImageView = (ImageView) itemView.findViewById(R.id.crime_imageView);
             itemView.setOnClickListener(this);
         }
-*/
 
-        public void bind(Crime crime) {
+   /*     public void bind(Crime crime) {
             mCrime = crime;
             mTitleTextView.setText(mCrime.getmTitle());
             mDateTextView.setText(mCrime.getmDate().toString());
@@ -210,7 +208,7 @@ public class CrimeListFragment extends Fragment {
             } else {
                 mSolvedImageView.setImageResource(R.drawable.fire);
             }
-        }
+        }*/
 
         @Override
         public void onClick(View v) {
@@ -246,14 +244,21 @@ public class CrimeListFragment extends Fragment {
         @org.jetbrains.annotations.NotNull
         @Override
         public CrimeListFragment.ViewHolder onCreateViewHolder(@NonNull @org.jetbrains.annotations.NotNull ViewGroup parent, int viewType) {
-            LayoutInflater layoutInflater = LayoutInflater.from(getActivity());
-            return new ViewHolder(layoutInflater, parent);
+            View view = LayoutInflater.from(getActivity()).inflate(R.layout.list_item_crime, parent, false);
+            ViewHolder holder = new ViewHolder(view);
+            return holder;
         }
 
         @Override
         public void onBindViewHolder(@NonNull @org.jetbrains.annotations.NotNull CrimeListFragment.ViewHolder holder, int position) {
-            Crime crime = mCrimes.get(position);
-            holder.bind(crime);
+            Crime positionItem = mCrimes.get(position);
+            holder.mTitleTextView.setText(positionItem.getmTitle());
+            holder.mDateTextView.setText(positionItem.getmDate().toString());
+            if (positionItem.ismSolved()) {
+                holder.mSolvedImageView.setImageResource(R.drawable.loves);
+            } else {
+                holder.mSolvedImageView.setImageResource(R.drawable.fire);
+            }
         }
 
         @Override
