@@ -199,7 +199,7 @@ public class CrimeListFragment extends Fragment {
             itemView.setOnClickListener(this);
         }
 
-   /*     public void bind(Crime crime) {
+/*        public void bind(Crime crime) {
             mCrime = crime;
             mTitleTextView.setText(mCrime.getmTitle());
             mDateTextView.setText(mCrime.getmDate().toString());
@@ -252,6 +252,7 @@ public class CrimeListFragment extends Fragment {
         @Override
         public void onBindViewHolder(@NonNull @org.jetbrains.annotations.NotNull CrimeListFragment.ViewHolder holder, int position) {
             Crime positionItem = mCrimes.get(position);
+            holder.mCrime = positionItem;
             holder.mTitleTextView.setText(positionItem.getmTitle());
             holder.mDateTextView.setText(positionItem.getmDate().toString());
             if (positionItem.ismSolved()) {
@@ -259,6 +260,7 @@ public class CrimeListFragment extends Fragment {
             } else {
                 holder.mSolvedImageView.setImageResource(R.drawable.fire);
             }
+
         }
 
         @Override
